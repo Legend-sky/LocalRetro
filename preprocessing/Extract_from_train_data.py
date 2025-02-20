@@ -29,7 +29,7 @@ def build_template_extractor(args):
     if args['retro']:
         setting['use_symbol'] = True
     print ('Template extractor setting:', setting)
-    return lambda x: extract_from_reaction(x, setting)
+    return lambda x: extract_from_reaction(x, setting)  #模板提取lambda函数
 
 def get_reaction_template(extractor, rxn, _id = 0):
     rxn = {'reactants': rxn.split('>>')[0], 'products': rxn.split('>>')[1], '_id': _id}
@@ -46,7 +46,7 @@ def get_full_template(template, H_change, Charge_change, Chiral_change):
         return '_'.join([template, H_code, Charge_code, Chiral_code])
             
 def extract_templates(args, extractor):
-    rxns = pd.read_csv('../data/%s/raw_train.csv' % args['dataset'])['reactants>reagents>production']
+    rxns = pd.read_csv('../data/%s/raw_train.csv' % args['dataset'])['reactants>reagents>production']   #读取要提取模板的训练数据
     
     class_train = '../data/%s/class_train.csv' % args['dataset']
     if os.path.exists(class_train):
@@ -168,8 +168,8 @@ if __name__ == '__main__':
     args = parser.parse_args().__dict__
     args['output_dir'] = '../data/%s' % args['dataset']
     mkdir_p(args['output_dir'])
-        
-    extractor = build_template_extractor(args)
+    
+    extractor = build_template_extractor(args)  #建立模板提取器
     derived_templates = extract_templates(args, extractor)
     export_template(derived_templates, args)
 

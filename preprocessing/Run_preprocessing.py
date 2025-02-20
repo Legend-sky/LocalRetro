@@ -1,4 +1,5 @@
 import os, sys, re, copy
+import numpy as np
 import json
 import pandas as pd
 from collections import defaultdict
@@ -211,8 +212,11 @@ def combine_preprocessed_data(train_pre, val_pre, test_pre, args):
     train_valid['Split'] = ['train'] * len(train_valid)
     val_valid['Split'] = ['val'] * len(val_valid)
     test_valid['Split'] = ['test'] * len(test_valid)
-    all_valid = train_valid.append(val_valid, ignore_index=True)
-    all_valid = all_valid.append(test_valid, ignore_index=True)
+    # all_valid = train_valid.append(val_valid, ignore_index=True)
+    # all_valid = all_valid.append(test_valid, ignore_index=True)
+
+    # 新版pandas中，append换成concat，使用 pd.concat 替代 append
+    all_valid = pd.concat([train_valid, val_valid, test_valid], ignore_index=True)
     all_valid['Mask'] = [int(f>=args['min_template_n']) for f in all_valid['Frequency']]
     print ('Valid data size: %s' % len(all_valid))
     all_valid.to_csv('%s/labeled_data.csv' % args['output_dir'], index = None)

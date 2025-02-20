@@ -4,6 +4,7 @@ import pandas as pd
 from rdkit import Chem
 
 import torch
+import numpy as np
 import sklearn
 import dgl.backend as F
 from dgl.data.utils import save_graphs, load_graphs
