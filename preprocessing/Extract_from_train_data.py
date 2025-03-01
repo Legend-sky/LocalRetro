@@ -61,8 +61,8 @@ def extract_templates(args, extractor):
     TemplateHs = {}
     TemplateSs = {}
     TemplateFreq = defaultdict(int)
-    templates_A = defaultdict(int)
-    templates_B = defaultdict(int)
+    templates_A = defaultdict(int)  #原子模板
+    templates_B = defaultdict(int)  #键模板
     
     for i, reaction in enumerate(rxns):
         if RXNHASCLASS:
@@ -138,7 +138,7 @@ def extract_templates(args, extractor):
     return derived_templates
 
 def export_template(derived_templates, args):
-    for k in derived_templates.keys():
+    for k in derived_templates.keys():  #'atom', 'bond'
         local_templates = derived_templates[k]
         templates = []
         template_class = []
