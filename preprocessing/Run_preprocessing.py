@@ -13,7 +13,7 @@ RDLogger.DisableLog('rdApp.*')
 sys.path.append('../')
 from Extract_from_train_data import build_template_extractor, get_reaction_template, get_full_template
     
-def get_edit_smarts_retro(smiles):
+def get_edit_smarts_retro(smiles):  # 提取分子中原子和键的信息，用于后续的反应模板匹配
     mol = Chem.MolFromSmiles(smiles)
     A = [a.GetSymbol() for a in mol.GetAtoms()]
     B = []
@@ -28,7 +28,7 @@ def get_edit_smarts_retro(smiles):
         B += ['%s%s%s' % (A[u], bond_smart, A[v]), '%s%s%s' % (A[v], bond_smart, A[u])]
     return A, B
 
-def get_edit_site_retro(smiles):
+def get_edit_site_retro(smiles):    # 提取分子中每个原子和键的索引，用于反应模板的编辑位点
     mol = Chem.MolFromSmiles(smiles)
     A = [a for a in range(mol.GetNumAtoms())]
     B = []
@@ -263,6 +263,3 @@ if __name__ == '__main__':
     
     combine_preprocessed_data(train_pre, val_pre, test_pre, args)
     
-        
-        
-        

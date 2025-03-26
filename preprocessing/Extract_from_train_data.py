@@ -143,6 +143,7 @@ def export_template(derived_templates, args):
         templates = []
         template_class = []
         template_freq = []
+        # 根据Frequency从小到大排序
         sorted_tuples = sorted(local_templates.items(), key=lambda item: item[1])
         c = 1
         for t in sorted_tuples:

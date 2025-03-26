@@ -53,11 +53,11 @@ class USPTODataset(object):
         
 class USPTOTestDataset(object):
     def __init__(self, args, smiles_to_graph, node_featurizer, edge_featurizer, load=True, log_every=1000):
-        df = pd.read_csv('../data/%s/raw_test.csv' % args['dataset'])
+        df = pd.read_csv('../data/%s/raw_%s.csv' % (args['dataset'], args['file']))
         self.rxns = df['reactants>reagents>production'].tolist()
         self.rxns = [canonicalize_rxn(rxn) for rxn in self.rxns]
         self.smiles = [rxn.split('>>')[-1] for rxn in self.rxns]
-        self.cache_file_path = '../data/saved_graphs/%s_test_dglgraph.bin' % args['dataset']
+        self.cache_file_path = '../data/saved_graphs/%s_dglgraph.bin' % args['dataset'] # 改为使用train数据集进行预测结果
         self._pre_process(smiles_to_graph, node_featurizer, edge_featurizer, load, log_every)
 
     def _pre_process(self, smiles_to_graph, node_featurizer, edge_featurizer, load, log_every):

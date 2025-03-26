@@ -1,11 +1,13 @@
 from argparse import ArgumentParser
-
+import os
 import torch
 import sklearn
 import torch.nn as nn
 
 from utils import *
 from get_edit import write_edits
+
+current_directory = os.getcwd()
 
 def main(args):
     model_name = 'LocalRetro_%s.pth' % args['dataset']
